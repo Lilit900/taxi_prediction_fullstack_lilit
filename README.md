@@ -50,3 +50,7 @@ This project uses `uv` for Python package management.
 - Applied a log-transform (`log1p`) to create a new column `Trip_Price_log`.
 - This reduces skew and makes the data more suitable for regression models.
 
+## Encoding Categorical Features
+
+- Categorical features (`Time_of_Day`, `Day_of_Week`, `Traffic_Conditions`, `Weather`) were converted into numeric columns using **one-hot encoding**.
+- The resulting boolean columns (`True`/`False`) were converted to `float` so all features are numeric and ready for machine learning models.
