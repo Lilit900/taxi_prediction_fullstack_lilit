@@ -1,34 +1,107 @@
-# Taxi Trip Prediction System (Lilit)
-Fullstack ML application for predicting taxi prices.
+# 🚕 Taxi Trip Prediction System
 
-## 📁 Project Structure
-* **src/taxipred/backend**: FastAPI web server logic.
-* **src/taxipred/frontend**: Streamlit interface for user interaction.
-* **src/taxipred/model_development**: Jupyter notebooks for EDA and model training.
-* **src/taxipred/data**: Local storage for raw and processed datasets (`df_train.csv`, `df_predict.csv`).
+A full-stack machine learning application for predicting taxi trip prices based on trip
+distance, duration, traffic conditions, time of day, day of week, and weather.
 
-## 📊 Data Processing Pipeline (Uppgift 1)
+---
 
-### 1. Data Cleaning & Feature Engineering
-* **Initial Cleanup**: Dropped the `Passenger_Count` column as it does not significantly affect the target variable `Trip_Price`.
-* **Mathematical Imputation**: Recovered missing values for `Trip_Distance_km`, `Base_Fare`, `Per_Km_Rate`, and `Per_Minute_Rate` by solving the pricing equation: 
-  $$Trip\_Price = Base\_Fare + (Distance \times Km\_Rate) + (Duration \times Minute\_Rate)$$
-* **Categorical Handling**: Filled missing values in `Time_of_Day`, `Day_of_Week`, `Traffic_Conditions`, and `Weather` with the label **"Unknown"** to preserve data rows for the model.
+## 📌 Project Overview
+This project focuses on building a robust price prediction system using real-world–style
+taxi trip data.  
+The pipeline includes data cleaning, mathematical imputation, feature engineering,
+outlier handling, model training, and deployment via a web interface.
 
-### 2. Outlier Removal (IQR Method)
-* **Statistical Filtering**: Used the Interquartile Range (IQR) to identify and handle extreme anomalies in the training set.
-* **Constraints**: Applied strict filtering to include only realistic urban trips:
-  * `Trip_Distance_km <= 50`
-  * `Trip_Price <= 150`
-* **Result**: Reduced the training set to **916 high-quality entries**, preventing the model from being skewed by rare, extreme long-distance trips.
+---
 
-### 3. Feature Transformation
-* **Target Normalization**: Applied a log-transform ($np.log1p$) to create `Trip_Price_log`. This reduces skewness and helps the Linear Regression model achieve higher accuracy.
-* **One-Hot Encoding**: Converted categorical text into numeric format using `pd.get_dummies(drop_first=True, dtype=float)`.
-* **Dtype Consistency**: Ensured all 14 feature columns are converted to `float64` for direct compatibility with Scikit-Learn.
+## 🗂 Project Structure
+- **src/taxipred/backend** – FastAPI backend serving the trained model
+- **src/taxipred/frontend** – Streamlit application for user interaction
+- **src/taxipred/model_development** – Jupyter notebooks for EDA and model training
+- **src/taxipred/data** – Raw and processed datasets
 
-### 4. Data Alignment & Export
-* **Synchronization**: Implemented a final alignment step to ensure the prediction set (`df_predict.csv`) contains the **exact same columns and order** as the training features.
-* **Final Outputs**:
-  * `df_train.csv`: 916 rows (Features + `Trip_Price` + `Trip_Price_log`).
-  * `df_predict.csv`: 32 rows (Features only, aligned for prediction).
+---
+
+## 📊 Data Processing Pipeline
+
+### 1. Data Cleaning
+- Removed `Passenger_Count` due to negligible impact on price
+- Identified missing values across numerical and categorical features
+- Dropped rows where multiple critical values were missing
+- Filled missing categorical values with `"Unknown"` to preserve data
+
+---
+
+### 2. Mathematical Imputation
+Missing numerical values were recovered using the pricing equation:
+
+**Trip_Price = Base_Fare  
++ (Trip_Distance_km × Per_Km_Rate)  
++ (Trip_Duration_Minutes × Per_Minute_Rate)**
+
+This approach minimized data loss while maintaining numerical accuracy.
+
+---
+
+### 3. Feature Selection
+After imputation, the following columns were removed:
+- `Base_Fare`
+- `Per_Km_Rate`
+- `Per_Minute_Rate`
+
+**Reasoning:**
+- Prevents data leakage
+- Avoids perfect multicollinearity
+- Forces the model to learn real-world pricing patterns
+
+**Final features used:**
+- Trip_Distance_km
+- Trip_Duration_Minutes
+- Time_of_Day
+- Day_of_Week
+- Traffic_Conditions
+- Weather
+
+---
+
+### 4. Outlier Handling
+- Applied Interquartile Range (IQR) filtering
+- Removed unrealistic high-distance and high-price trips
+- Final training dataset size: **916 rows**
+
+---
+
+### 5. Feature Encoding & Alignment
+- One-hot encoded categorical variables
+- Applied log transformation (`log1p`) to the target variable
+- Ensured training and prediction datasets had identical feature structure
+
+---
+
+## 🤖 Model
+- **Model:** Linear Regression
+- **Target:** Log-transformed Trip_Price
+- Designed for interpretability and robustness
+
+---
+
+## 🌐 Application
+- **Backend:** FastAPI serving predictions
+- **Frontend:** Streamlit interface for user inputs and price prediction display
+
+---
+
+## 📦 Outputs
+- `df_train.csv` – Cleaned and processed training dataset
+- `df_predict.csv` – Aligned prediction dataset (32 trips)
+
+---
+
+## ⚠ Limitations
+- Original pricing rate features were removed to prevent leakage
+- Linear regression may not capture complex non-linear pricing behavior
+
+---
+
+## 📎 Notes
+Detailed implementation steps, experiments, and visualizations
+are documented in the `model_development` notebooks.
