@@ -117,3 +117,16 @@ Before finalizing the data for training, a rigorous statistical audit was perfor
 ## 📎 Notes
 Detailed implementation steps, experiments, and visualizations
 are documented in the `model_development` notebooks.
+
+### 📊 Exploratory Data Analysis Visuals
+
+To justify our cleaning and feature engineering decisions, we analyzed the relationships and distributions within the dataset:
+
+#### Outlier Identification & Removal
+This comparison shows how we eliminated noise by capping distances at 50km and prices at $150.
+![Outliers Before](src/taxipred/data/eda_outliers.png)
+![Cleaned Data](src/taxipred/data/eda_cleaned_price_dist.png)
+
+#### Feature Relationships
+The heatmap below validates our feature selection and highlights the strong correlation between distance and price.
+![Correlation Heatmap](src/taxipred/data/correlation_heatmap_encoded.png)
