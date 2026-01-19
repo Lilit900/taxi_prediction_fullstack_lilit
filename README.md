@@ -77,6 +77,18 @@ After imputation, the following columns were removed:
 
 ---
 
+### 6. Statistical Validation & Integrity Check
+Before finalizing the data for training, a rigorous statistical audit was performed using descriptive statistics (.describe().T):
+
+- Outlier Mitigation: Verified that all entries in the final training set strictly adhere to defined thresholds.
+
+- Normalization: Confirmed that the log-transformation successfully addressed skewness in the target variable.
+
+- Feature Consistency: Verified that one-hot encoded variables are correctly scaled between 0.0 and 1.0.
+
+- Schema Alignment: Ensured that df_predict.csv contains the exact same 14-feature statistical baseline as the training set.
+
+---
 ## 🤖 Model
 - **Model:** Linear Regression
 - **Target:** Log-transformed Trip_Price
