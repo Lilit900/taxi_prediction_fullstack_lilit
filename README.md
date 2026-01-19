@@ -1,16 +1,17 @@
 src/taxipred/
-├── backend/
-│   ├── api.py
-│   └── data_processing.py
-├── data/
-├── frontend/
-│   └── app.py
-├── model_development/
-│   ├── eda.ipynb
-│   └── model_dev.ipynb
-├── utils/
-│   ├── constants.py
-│   └── __init__.py
+├── backend/                  # FastAPI backend and API layer
+│   ├── api.py                # API endpoints for predictions and data access
+│   └── data_processing.py    # Input validation and preprocessing logic
+├── data/                     # Raw data, processed datasets, and EDA artifacts
+├── frontend/                 # Streamlit frontend application
+│   └── app.py                # User interface for price prediction
+├── model_development/        # Jupyter notebooks for ML workflow
+│   ├── eda.ipynb             # Exploratory Data Analysis and data cleaning
+│   └── model_dev.ipynb       # Model training, evaluation, and selection
+├── utils/                    # Shared utilities and constants
+│   ├── constants.py          # Global constants and configuration values
+│   └── __init__.py           # Marks utils as a Python package
+
 
 
 # 🚕 Taxi Trip Prediction System
