@@ -125,7 +125,8 @@ To justify our cleaning and feature engineering decisions, we analyzed the relat
 #### Outlier Identification & Removal
 This comparison shows how we eliminated noise by capping distances at 50km and prices at $150.
 ![Outliers Before](src/taxipred/data/eda_outliers.png)
-![Cleaned Data](src/taxipred/data/eda_cleaned_price_dist.png)
+![Cleaned Data](src/taxipred/data/eda_cleaned_price_distance.png)
+
 
 #### Feature Relationships
 The heatmap below validates our feature selection and highlights the strong correlation between distance and price.
