@@ -3,6 +3,7 @@ src/taxipred/
 ├── backend/                  # FastAPI backend and API layer
 │   ├── api.py                # API endpoints for predictions and data access
 │   └── data_processing.py    # Input validation and preprocessing logic
+|   └── random_forest_model.joblib    # Production model   
 ├── data/                     # Raw data, processed datasets, and EDA artifacts
 ├── frontend/                 # Streamlit frontend application
 │   └── app.py                # User interface for price prediction
