@@ -216,6 +216,24 @@ Open Swagger UI:
 
 http://127.0.0.1:8000/docs 
 
+## ▶ Run the Frontend (Streamlit)
+
+Start the backend first (FastAPI), then in a new terminal run:
+
+```bash
+uv run streamlit run src/taxipred/frontend/app.py
+```
+Open the app in your browser:
+
+http://localhost:8501
+
+
+**Note:** The Streamlit app calls the FastAPI endpoint:
+`POST /api/taxi/v1/predict`
+
+
+
+
 ---
 
 ## 📦 Outputs
