@@ -55,7 +55,7 @@ outlier handling, model training, and deployment through a decoupled backend and
 - **src/taxipred/backend** – FastAPI backend serving the trained model
 - **src/taxipred/frontend** – Streamlit application for user interaction
 - **src/taxipred/model_development** – Jupyter notebooks for EDA and model training
-- **src/taxipred/data** – Raw and processed datasets
+- **src/taxipred/data** – Raw and processed datasets + screenshots (EDA + Streamlit UI)
 
 ---
 
@@ -74,9 +74,16 @@ outlier handling, model training, and deployment through a decoupled backend and
 
 Missing numerical values were recovered using the pricing equation:
 
-**Trip_Price = Base_Fare  
-+ (Trip_Distance_km × Per_Km_Rate)  
-+ (Trip_Duration_Minutes × Per_Minute_Rate)**
+
+### Option 3 (if you want bullets): don’t bold the bullets
+Paste this:
+
+```md
+Trip_Price = Base_Fare  
+- (Trip_Distance_km × Per_Km_Rate)  
+- (Trip_Duration_Minutes × Per_Minute_Rate)
+```
+
 
 This approach minimized data loss while maintaining numerical accuracy.
 
