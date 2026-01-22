@@ -18,7 +18,11 @@ def geocode_address(query: str) -> tuple[float, float]:
     key = _get_api_key()
 
     url = f'{ORS_BASE_URL}/geocode/search'
-    params = {'text': query, 'size': 1}
+    params = {
+        'text': query, 
+        'size': 1,
+        'boundary.country': 'SE' 
+    }
     headers = {'Authorization': key}
 
     r = requests.get(url, params=params, headers=headers, timeout=30)
