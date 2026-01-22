@@ -3,28 +3,31 @@ taxi_prediction_fullstack_lilit/
 ├── .venv/
 ├── src/
 │   └── taxipred/
+│       ├── __init__.py
 │       ├── backend/
 │       │   ├── api.py
 │       │   ├── data_processing.py
 │       │   ├── ors_routes.py
-│       │   └── random_forest_model.joblib
+│       │   └── model_rf.joblib
 │       ├── data/
 │       │   ├── screenshots/
 │       │   │   ├── correlation_heatmap_encoded.png
 │       │   │   ├── eda_cleaned_price_distance.png
 │       │   │   ├── eda_outliers.png
+│       │   │   ├── Streamlit_A_B_point.png
 │       │   │   ├── streamlit_prediction.png
 │       │   │   └── streamlit_ui.png
 │       │   ├── df_predict.csv
 │       │   ├── df_train.csv
 │       │   └── taxi_trip_pricing.csv
 │       ├── frontend/
-│       │   └── app.py
+│       │   ├── app.py
+│       │   └── pages/
+│       │       └── 1_Map_Route.py
 │       ├── model_development/
 │       │   ├── eda.ipynb
 │       │   └── model_dev.ipynb
 │       └── utils/
-│           ├── __init__.py
 │           └── constants.py
 ├── .gitignore
 ├── .python-version
@@ -343,6 +346,32 @@ using a fixed exchange rate.
 
 This approach avoids introducing external currency APIs while keeping the
 application realistic and deterministic for evaluation.
+
+---
+
+## 🖥️ User Interfaces
+The application features a multi-page Streamlit interface to provide two distinct prediction modes:
+
+1. Manual Fare Estimation (app.py)
+* **Purpose**: Allows for "what-if" scenario testing.
+
+* **Inputs**: Users manually adjust sliders for Distance (km) and Duration (min).
+
+* **Factors**: Includes environmental variables like Time of Day, Traffic Conditions, and Weather.
+
+2. Address-to-Address Prediction (1_Map_Route.py)
+* **Purpose**: Real-world trip planning with automated distance calculation.
+
+* **Inputs**: Users enter a Start Address (A) and an End Address (B).
+
+* **Integration**: Connects to the OpenRouteService (ORS) API via the backend to fetch real-time distance and duration.
+
+* **Visualization**: Displays an interactive Folium map showing the driving route.
+
+* **Safety Mechanism**: Includes a **Geographic Boundary (Sweden-only)** and a **Distance Cap (100km)** to prevent unrealistic predictions outside the model's training range.
+
+* **UI Screenshot**:
+![Map Route Prediction Result](src/taxipred/data/screenshots/Streamlit_A_B_point.png)
 
 ---
 ## 📦 Outputs
