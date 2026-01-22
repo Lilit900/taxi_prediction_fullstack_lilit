@@ -257,8 +257,10 @@ Open Swagger UI:
 http://127.0.0.1:8000/docs 
 
 ### API Endpoints
+- `GET /api/taxi/v1/`  – API base entry point
 - `GET /api/taxi/v1/health` – backend status
 - `GET /api/taxi/v1/data/sample` – sample rows from training data
+- `POST /api/taxi/v1/route` – route calculation (distance, duration, map geometry)
 - `POST /api/taxi/v1/predict` – price prediction
 
 
@@ -304,6 +306,45 @@ Flow:
 
 ---
 
+## 🗺 Bonus: Route-Based Price Prediction
+
+As an additional feature, the application supports route-based taxi price prediction
+using real geographic locations.
+
+Users can enter a start address (A) and a destination address (B).
+The backend integrates with **OpenRouteService (ORS)** to:
+
+- Geocode human-readable addresses into latitude/longitude
+- Calculate a realistic driving route
+- Extract route distance (km) and estimated travel duration (minutes)
+- Return route geometry for map visualization
+
+The calculated distance and duration are automatically injected into the
+machine learning prediction pipeline, removing the need for manual input and
+reducing user error.
+
+### Technical Design
+
+- The **frontend (Streamlit)** never calls OpenRouteService directly
+- A dedicated FastAPI endpoint (`POST /api/taxi/v1/route`) handles:
+  - ORS communication
+  - API key security
+  - Error handling and timeouts
+- This design keeps the system fully decoupled and production-oriented
+
+The route is visualized using an interactive map, providing immediate
+feedback to the user before price prediction.
+
+### Currency Handling
+
+The machine learning model predicts prices in the original training scale.
+For presentation purposes, predicted prices are converted to **SEK** in the backend
+using a fixed exchange rate.
+
+This approach avoids introducing external currency APIs while keeping the
+application realistic and deterministic for evaluation.
+
+---
 ## 📦 Outputs
 - `df_train.csv` – Cleaned and processed training dataset
 - `df_predict.csv` – Aligned prediction dataset (32 trips)

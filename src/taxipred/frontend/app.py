@@ -96,7 +96,6 @@ if submitted:
     try:
         response = requests.post(f"{API_URL}/predict", json=payload, timeout=10)
         if response.status_code == 200:
-            # SAVE the result to session state so it stays visible
             st.session_state["last_prediction"] = response.json()
         else:
             st.error(f"Prediction failed: {response.text}")
@@ -109,3 +108,14 @@ if submitted:
         st.error("Backend took too long to respond (timeout).")
     except Exception as e:
         st.error(f"Unexpected error: {e}")
+
+if "last_prediction" in st.session_state:
+    res = st.session_state["last_prediction"]
+    st.divider()
+    st.markdown(f"""
+    <div style="background-color:#1e293b; padding:25px; border-radius:15px; border:2px solid #3b82f6; text-align:center;">
+        <h2 style="color:white; margin:0; font-size:1.5rem;">💳 Estimated Fare</h2>
+        <h1 style="color:#60a5fa; margin:10px 0; font-size:3rem;">{res['estimated_price']:.2f} {res['currency']}</h1>
+        <p style="color:#94a3b8; margin:0;">Confidence Level (Log): {res['predicted_price_log']:.4f}</p>
+    </div>
+    """, unsafe_allow_html=True)
