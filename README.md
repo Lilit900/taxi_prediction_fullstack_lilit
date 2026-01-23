@@ -302,7 +302,7 @@ Flow:
 
 ### Example prediction result
 
-![Streamlit Prediction](src/taxipred/data/screenshots/streamlit_prediction.png)
+![Streamlit Prediction](src/taxipred/data/screenshots/Streamlit_predicted_price.png)
 
 ---
 
