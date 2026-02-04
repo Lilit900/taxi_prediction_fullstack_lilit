@@ -1,10 +1,10 @@
 [project]
 name = "taxipred"
 version = "0.1.0"
-description = "Add your description here"
+description = "Fullstack ML application for predicting taxi prices"
 readme = "README.md"
 authors = [
-    { name = "lilit900", email = "ajoyan.lilit@gmail.com" }
+    { name = "LAjoyan", email = "ajoyan.lilit@gmail.com" }
 ]
 requires-python = ">=3.14"
 dependencies = [
